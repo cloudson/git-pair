@@ -30,6 +30,9 @@ function gp_add_author()
 	[[ -z "$1" ]] && { echo "Pair name is required, like 'John Doe'."; exit 100; }
 
 	CURRENT_AUTHORS=$(git config user.name)
+	GLOBAL_AUTHOR=$(git config --global user.name) 
+	[[ "$CURRENT_AUTHORS" != "$GLOBAL_AUTHOR" ]] && { echo "Are you in pair with two other people? It's not a pair."; exit 102; }
+
 	PAIR_NAMES="${CURRENT_AUTHORS} ${PAIR_SEPARATOR} ${PAIR_NAME}"
 
 	git config --local user.name "$PAIR_NAMES"
